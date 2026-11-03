@@ -1,22 +1,20 @@
 # Caderno de pedidos — Santos Angelo
 
-Painel simples para registrar pedidos, acompanhar status, somar preços dos baralhos e preparar mensagens para WhatsApp. Os pedidos são salvos na nuvem pelo Supabase e podem ser acessados em dispositivos diferentes.
+Painel privado para registrar pedidos, acompanhar status, somar preços, aplicar descontos e preparar mensagens para WhatsApp. Os pedidos são salvos na nuvem pelo Supabase.
 
-## Configuração inicial
+## Uso
 
-1. No Supabase, abra **SQL Editor → New query**, cole o conteúdo de `supabase-schema.sql` e clique em **Run**. A tabela usa Row Level Security para cada usuário autenticado acessar somente os próprios pedidos.
-2. Em **Authentication → Users**, crie o usuário do ateliê com e-mail e senha. O painel não oferece cadastro público.
-3. Em **Project Settings → API**, copie a **Project URL** e a chave **publishable** (ou `anon`). Abra `supabase-config.js` e substitua os dois valores de exemplo. Nunca use a chave `service_role` no site.
-4. Envie `index.html`, `admin.css`, `reservas.js`, `supabase-config.js` e `logo.png` para a raiz do repositório GitHub e confirme o commit.
-5. Abra o GitHub Pages e entre no painel. O usuário pode ser convidado por **Authentication → Users**; confirme o convite por e-mail. Use **Esqueci minha senha** para definir ou recuperar a senha.
+- Na aba **Novo pedido**, selecione baralhos e quantidades. O desconto percentual atualiza o total e aparece na mensagem para o cliente.
+- Na aba **Pedidos cadastrados**, abra os detalhes para editar, preparar a mensagem ou excluir um pedido concluído. As cores identificam cada status.
+- Na aba **Baralhos**, adicione itens, altere nome e preço ou arquive e reative baralhos. As mudanças sincronizam com o Supabase e aparecem nos outros dispositivos ao entrar na mesma conta.
+- Pedidos já salvos mantêm os nomes e preços anotados originalmente, mesmo quando o catálogo muda.
+- Use **Baixar cópia** para guardar um backup periódico.
 
-## Dados e privacidade
+## Configuração
 
-É necessária conexão com a internet para consultar e salvar pedidos. Os dados ficam na tabela `customer_orders` e as políticas RLS limitam leitura, edição e exclusão aos registros do usuário autenticado. O e-mail e a senha ficam sob gerenciamento do Supabase Auth.
+A tabela `customer_orders` usa Row Level Security para que cada usuário autenticado só acesse seus próprios pedidos. Rode `supabase-schema.sql` no SQL Editor do projeto Supabase se a tabela ainda não existir. O site usa a chave pública publishable; nunca coloque uma chave `service_role` no site ou no GitHub.
 
-Se existirem pedidos antigos salvos no navegador onde o painel era usado, a primeira entrada tenta copiá-los para a nuvem quando a tabela ainda estiver vazia. Mantenha o botão **Baixar cópia** como backup periódico.
-
-## Preços cadastrados
+## Catálogo inicial
 
 - Tarot de la Reyne — R$ 550
 - Sola Busca — R$ 350
@@ -26,4 +24,4 @@ Se existirem pedidos antigos salvos no navegador onde o painel era usado, a prim
 - Oswald Wirth — R$ 190
 - Petit Lenormand — R$ 190
 
-O frete fica como **a combinar**.
+Frete fica como **a combinar**.

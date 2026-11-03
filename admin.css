@@ -89,7 +89,23 @@ h1 em { color: var(--red); }
 .order-card { min-width: 0; padding: 17px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 7px; }
 .order-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
 .order-card h3 { margin: 0; font-size: 17px; line-height: 1.35; font-weight: 650; overflow-wrap: anywhere; }
-.status-badge { flex: 0 0 auto; padding: 4px 9px; border-radius: 20px; background: #edf2ff; color: #315fce; font-size: 12px; font-weight: 700; }
+.status-badge { flex: 0 0 auto; padding: 4px 9px; border-radius: 20px; background: #edf0f3; color: #56616d; font-size: 12px; font-weight: 700; }
+.status-recebido { background: #edf0f3; color: #56616d; }
+.status-confirmado { background: #e6efff; color: #2856a6; }
+.status-em-producao { background: #fff0d8; color: #8b5700; }
+.status-pronto { background: #e5f4e9; color: #287342; }
+.status-enviado { background: #eee8ff; color: #6242a4; }
+.status-entregue { background: #def3ef; color: #17685b; }
+.status-cancelado { background: #fde7e5; color: #a3342c; }
+.deck-form { display: grid; gap: 16px; margin-bottom: 14px; }
+.deck-catalog-list { display: grid; gap: 8px; }
+.deck-catalog-row { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); }
+.deck-catalog-row > div:first-child { display: grid; gap: 2px; min-width: 0; }
+.deck-catalog-row > div:first-child span { color: var(--muted); font-size: 13px; }
+.deck-catalog-actions { display: flex; flex: 0 0 auto; gap: 7px; }
+.deck-catalog-actions .button { min-height: 34px; padding: 6px 10px; font-size: 12px; }
+.is-archived { opacity: .68; }
+.archived-label { margin-left: 4px; color: var(--muted); font-size: 11px; font-style: normal; }
 .order-meta { margin: 8px 0 0; color: var(--muted); font-size: 13px; overflow-wrap: anywhere; }
 .order-description { margin: 14px 0 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .order-note { margin: 10px 0 0; padding-top: 10px; border-top: 1px solid var(--line); color: var(--muted); white-space: pre-wrap; overflow-wrap: anywhere; font-size: 14px; }
@@ -113,7 +129,7 @@ h1 em { color: var(--red); }
   .orders-heading h2 { font-size: 24px; }
   .orders-heading .button { padding: 8px 10px; font-size: 12px; }
   .panel-tabs { width: 100%; }
-  .panel-tab { flex: 1; padding: 7px 8px; font-size: 12px; }
+  .panel-tab { flex: 1; padding: 7px 6px; font-size: 11px; }
   .orders-toolbar { grid-template-columns: 1fr; }
   .order-list-row { padding: 13px 12px; }
   .order-list-right { gap: 7px; }
@@ -121,4 +137,5 @@ h1 em { color: var(--red); }
   .order-card { padding: 15px 13px; }
   .order-card h3 { font-size: 16px; }
   .order-top { flex-wrap: wrap; }
+  .deck-catalog-row { align-items: flex-start; flex-direction: column; }
 }

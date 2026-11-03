@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
   <meta name="theme-color" content="#f5f0e7"><title>Pedidos — Santos Angelo Tarocchi</title>
-  <link rel="stylesheet" href="admin.css?v=online2">
+  <link rel="stylesheet" href="admin.css?v=online3">
 </head>
 <body>
   <section id="auth-gate" class="auth-gate">
@@ -30,7 +30,7 @@
     <div class="app-toolbar"><div><p class="eyebrow">CONTROLE DO ATELIÊ</p><h1>Pedidos <em>manuais</em></h1></div><button id="sign-out" class="button button-secondary" type="button">Sair</button></div>
     <p class="intro">Anote pedidos, consulte os detalhes e prepare mensagens para os clientes. Os registros ficam salvos online.</p>
     <section class="simple-admin">
-      <nav class="panel-tabs" aria-label="Seções de pedidos"><button class="panel-tab is-active" type="button" data-panel-tab="new" aria-selected="true">Novo pedido</button><button class="panel-tab" type="button" data-panel-tab="orders" aria-selected="false">Pedidos cadastrados <span id="order-count" class="tab-count">0</span></button></nav>
+      <nav class="panel-tabs" aria-label="Seções de pedidos"><button class="panel-tab is-active" type="button" data-panel-tab="new" aria-selected="true">Novo pedido</button><button class="panel-tab" type="button" data-panel-tab="orders" aria-selected="false">Pedidos cadastrados <span id="order-count" class="tab-count">0</span></button><button class="panel-tab" type="button" data-panel-tab="decks" aria-selected="false">Baralhos</button></nav>
       <section id="new-order-panel" class="tab-panel">
       <form id="simple-order-form" class="panel-card order-form">
         <h2 id="order-form-title">Anotar pedido</h2>
@@ -38,7 +38,7 @@
         <div class="fields"><label class="field"><span class="field-label">Nome do cliente</span><input name="name" maxlength="120" required></label><label class="field"><span class="field-label">WhatsApp</span><input name="whatsapp" type="tel" maxlength="30" placeholder="Ex.: 5511999999999"></label><label class="field field-wide"><span class="field-label">E-mail</span><input name="email" type="email" maxlength="254" placeholder="cliente@exemplo.com"></label>
           <fieldset class="deck-picker field-wide"><legend class="field-label">Baralhos e quantidades</legend><div id="admin-deck-options" class="admin-deck-options"></div></fieldset>
           <p id="admin-order-summary" class="order-summary field-wide">Selecione os baralhos do pedido.</p>
-          <label class="field"><span class="field-label">Status</span><select name="status" required><option>Recebido</option><option>Confirmado</option><option>Em produção</option><option>Pronto</option><option>Enviado</option><option>Entregue</option><option>Cancelado</option></select></label><label class="field"><span class="field-label">Observação</span><textarea name="note" rows="2" maxlength="500" placeholder="Opcional"></textarea></label></div>
+          <label class="field"><span class="field-label">Status</span><select name="status" required><option>Recebido</option><option>Confirmado</option><option>Em produção</option><option>Pronto</option><option>Enviado</option><option>Entregue</option><option>Cancelado</option></select></label><label class="field"><span class="field-label">Desconto (%)</span><input name="discountPercent" type="number" min="0" max="100" step="1" value="0" inputmode="numeric"></label><label class="field field-wide"><span class="field-label">Observação</span><textarea name="note" rows="2" maxlength="500" placeholder="Opcional"></textarea></label></div>
         <div class="actions"><button class="button" type="submit">Salvar pedido</button><button class="button button-secondary hidden" id="cancel-edit" type="button">Cancelar edição</button></div>
         <p id="order-message" class="status-message" role="status"></p>
       </form>
@@ -50,7 +50,17 @@
         <div id="order-detail-panel" class="order-detail-panel hidden"></div>
         <p class="local-notice">Cada pedido pode ser editado. Depois de concluído, use <strong>Excluir</strong> para removê-lo desta lista.</p>
       </section>
+      <section id="decks-panel" class="tab-panel hidden">
+        <div class="orders-heading"><div><h2>Catálogo de baralhos</h2><p class="intro">Altere nomes e preços ou adicione novos. Cada pedido mantém o preço aplicado na data do registro.</p></div></div>
+        <form id="deck-form" class="panel-card deck-form">
+          <input type="hidden" name="slug">
+          <div class="fields"><label class="field"><span class="field-label">Nome do baralho</span><input name="name" maxlength="80" required placeholder="Ex.: Tarot de Marselha"></label><label class="field"><span class="field-label">Preço (R$)</span><input name="price" type="number" min="0" step="0.01" inputmode="decimal" required placeholder="190,00"></label></div>
+          <div class="actions"><button class="button" type="submit">Salvar baralho</button><button class="button button-secondary hidden" id="cancel-deck-edit" type="button">Cancelar edição</button></div>
+          <p id="deck-message" class="status-message" role="status"></p>
+        </form>
+        <div id="deck-catalog-list" class="deck-catalog-list"></div>
+      </section>
       <p class="local-notice">Os registros são salvos na nuvem. Use “Baixar cópia” para manter um backup.</p>
     </section>
-  </main></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js?v=online2"></script><script src="reservas.js?v=online2"></script>
+  </main></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js?v=online3"></script><script src="reservas.js?v=online3"></script>
 </body></html>
