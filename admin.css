@@ -55,9 +55,27 @@ h1 em { color: var(--red); }
 .button-secondary:hover { background: var(--surface-alt); }
 .status-message { min-height: 1.5em; margin: -12px 0 0; color: var(--muted); font-size: 13px; }
 .orders-section { margin-top: 34px; }
+.panel-tabs { display: flex; gap: 6px; margin: 0 0 18px; padding: 4px; border: 1px solid var(--line); border-radius: 7px; background: #e9edf2; }
+.panel-tab { min-height: 38px; padding: 8px 14px; border: 0; border-radius: 5px; background: transparent; color: var(--muted); font: 600 13px var(--sans); cursor: pointer; }
+.panel-tab.is-active { background: var(--surface); color: var(--ink); box-shadow: 0 1px 3px #17203316; }
+.tab-count { display: inline-grid; min-width: 20px; height: 20px; margin-left: 5px; place-items: center; border-radius: 12px; background: #e7ecf4; color: #465164; font-size: 11px; }
+.tab-panel.hidden { display: none !important; }
 .orders-heading { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-bottom: 16px; }
 .orders-heading h2 { margin: 0; font-size: 21px; font-family: var(--sans); font-weight: 650; }
 .orders-list { display: grid; gap: 10px; }
+.orders-toolbar { display: grid; grid-template-columns: minmax(0, 1fr) 190px; gap: 10px; margin-bottom: 13px; }
+.orders-toolbar input, .orders-toolbar select { min-width: 0; min-height: 40px; padding: 9px 11px; border: 1px solid var(--line); border-radius: 5px; background: var(--surface); color: var(--ink); font: 14px var(--sans); }
+.order-list-row { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 15px 16px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); color: var(--ink); text-align: left; cursor: pointer; }
+.order-list-row:hover, .order-list-row:focus-visible { border-color: #9aadd5; box-shadow: 0 0 0 3px #315fce13; outline: none; }
+.order-list-main { min-width: 0; }
+.order-list-name { display: block; font-weight: 650; overflow-wrap: anywhere; }
+.order-list-meta { display: block; margin-top: 3px; color: var(--muted); font-size: 12px; overflow-wrap: anywhere; }
+.order-list-right { display: flex; flex: 0 0 auto; align-items: center; gap: 12px; }
+.order-detail-panel { margin-top: 15px; }
+.order-detail-card { padding: 20px; border: 1px solid var(--line); border-radius: 7px; background: var(--surface); }
+.order-detail-card h3 { margin: 0; font: 650 19px/1.4 var(--sans); overflow-wrap: anywhere; }
+.order-detail-card .order-description { padding: 14px; border-radius: 5px; background: var(--surface-alt); }
+.detail-close { float: right; min-height: 32px; padding: 5px 9px; border: 1px solid var(--line); border-radius: 5px; background: transparent; color: var(--muted); font: 13px var(--sans); cursor: pointer; }
 .empty-state { margin: 0; padding: 22px; border: 1px dashed #cbd1da; border-radius: 7px; color: var(--muted); text-align: center; }
 .order-card { min-width: 0; padding: 17px 18px; background: var(--surface); border: 1px solid var(--line); border-radius: 7px; }
 .order-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 14px; }
@@ -85,6 +103,12 @@ h1 em { color: var(--red); }
   .orders-heading { align-items: flex-start; }
   .orders-heading h2 { font-size: 24px; }
   .orders-heading .button { padding: 8px 10px; font-size: 12px; }
+  .panel-tabs { width: 100%; }
+  .panel-tab { flex: 1; padding: 7px 8px; font-size: 12px; }
+  .orders-toolbar { grid-template-columns: 1fr; }
+  .order-list-row { padding: 13px 12px; }
+  .order-list-right { gap: 7px; }
+  .order-detail-card { padding: 16px 13px; }
   .order-card { padding: 15px 13px; }
   .order-card h3 { font-size: 16px; }
   .order-top { flex-wrap: wrap; }

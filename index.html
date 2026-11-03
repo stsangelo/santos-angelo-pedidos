@@ -6,11 +6,13 @@
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
-  <header class="panel-header"><a class="panel-brand" href="index.html"><img src="assets/logo-santos-angelo.png" alt="Santos Angelo"></a><a class="back-link" href="index.html">← Voltar ao site</a></header>
+  <header class="panel-header"><a class="panel-brand" href="index.html"><img src="logo.png" alt="Santos Angelo"></a></header>
   <main class="panel-shell">
     <p class="eyebrow">CONTROLE DO ATELIÊ</p><h1>Pedidos <em>manuais</em></h1>
     <p class="intro">Anote o pedido, acompanhe o status e prepare uma mensagem para enviar ao cliente. Os dados ficam salvos somente neste navegador.</p>
     <section class="simple-admin">
+      <nav class="panel-tabs" aria-label="Seções de pedidos"><button class="panel-tab is-active" type="button" data-panel-tab="new" aria-selected="true">Novo pedido</button><button class="panel-tab" type="button" data-panel-tab="orders" aria-selected="false">Pedidos cadastrados <span id="order-count" class="tab-count">0</span></button></nav>
+      <section id="new-order-panel" class="tab-panel">
       <form id="simple-order-form" class="panel-card order-form">
         <h2 id="order-form-title">Anotar pedido</h2>
         <input type="hidden" name="key">
@@ -21,7 +23,14 @@
         <div class="actions"><button class="button" type="submit">Salvar pedido</button><button class="button button-secondary hidden" id="cancel-edit" type="button">Cancelar edição</button></div>
         <p id="order-message" class="status-message" role="status"></p>
       </form>
-      <div class="orders-section"><div class="orders-heading"><h2>Pedidos anotados</h2><button id="export-orders" class="button button-secondary" type="button">Baixar cópia</button></div><div id="simple-order-list" class="orders-list"></div><p class="local-notice">Cada pedido pode ser editado. Depois de concluído, use <strong>Excluir</strong> para removê-lo desta lista.</p></div>
+      </section>
+      <section id="orders-panel" class="tab-panel hidden">
+        <div class="orders-heading"><h2>Pedidos cadastrados</h2><button id="export-orders" class="button button-secondary" type="button">Baixar cópia</button></div>
+        <div class="orders-toolbar"><input id="order-search" type="search" placeholder="Buscar por número, cliente ou baralho" aria-label="Buscar pedidos"><select id="order-status-filter" aria-label="Filtrar por status"><option value="">Todos os status</option><option>Recebido</option><option>Confirmado</option><option>Em produção</option><option>Pronto</option><option>Enviado</option><option>Entregue</option><option>Cancelado</option></select></div>
+        <div id="simple-order-list" class="orders-list"></div>
+        <div id="order-detail-panel" class="order-detail-panel hidden"></div>
+        <p class="local-notice">Cada pedido pode ser editado. Depois de concluído, use <strong>Excluir</strong> para removê-lo desta lista.</p>
+      </section>
       <p class="local-notice">Os registros ficam neste navegador. Para não perder os dados, use “Baixar cópia” e guarde o arquivo exportado.</p>
     </section>
   </main><script src="reservas.js"></script>
