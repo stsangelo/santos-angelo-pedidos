@@ -25,7 +25,7 @@ if(orderForm){
   const STORAGE_KEY="santos-angelo-orders-v1";
   const list=document.querySelector("#simple-order-list"),detailPanel=document.querySelector("#order-detail-panel"),message=document.querySelector("#order-message");
   const count=document.querySelector("#order-count"),search=document.querySelector("#order-search"),statusFilter=document.querySelector("#order-status-filter");
-  const authGate=document.querySelector("#auth-gate"),authForm=document.querySelector("#auth-form"),authMessage=document.querySelector("#auth-message"),ordersApp=document.querySelector("#orders-app");
+  const authGate=document.querySelector("#auth-gate"),authForm=document.querySelector("#auth-form"),authMessage=document.querySelector("#auth-message"),resetForm=document.querySelector("#password-reset-form"),resetMessage=document.querySelector("#password-reset-message"),ordersApp=document.querySelector("#orders-app");
   const config=window.APP_SUPABASE_CONFIG||{};
   const DECKS=[
     {slug:"tarot-de-la-reyne",name:"Tarot de la Reyne",price:550},
@@ -37,7 +37,7 @@ if(orderForm){
     {slug:"petit-lenormand",name:"Petit Lenormand",price:190}
   ];
   const deckOptions=document.querySelector("#admin-deck-options"),orderSummary=document.querySelector("#admin-order-summary");
-  let selectedKey=null,ordersCache=[],client=null,loading=false;
+  let selectedKey=null,ordersCache=[],client=null,loading=false,recoveringPassword=location.hash.includes("type=recovery");
   const selectedDecks=()=>DECKS.filter(d=>deckOptions.querySelector(`[data-admin-deck="${d.slug}"]`).checked).map(d=>({slug:d.slug,name:d.name,price:d.price,quantity:Number(deckOptions.querySelector(`[data-admin-qty="${d.slug}"]`).value)}));
   const orderTotal=decks=>decks.reduce((sum,d)=>sum+d.price*d.quantity,0);
   const refreshSummary=()=>{const decks=selectedDecks(),summary=decks.length?`${decks.map(d=>`${d.name} × ${d.quantity} — ${money(d.price)} cada`).join("\n")}\nSubtotal: ${money(orderTotal(decks))}\nFrete: a combinar`:"";orderSummary.textContent=summary||"Selecione os baralhos do pedido.";orderSummary.classList.toggle("has-items",Boolean(summary))};
@@ -84,9 +84,11 @@ if(orderForm){
   }else{
     client=window.supabase.createClient(config.url,config.anonKey);
     authForm.addEventListener("submit",async e=>{e.preventDefault();const data=Object.fromEntries(new FormData(authForm));authMessage.textContent="Conectando…";const {data:result,error}=await client.auth.signInWithPassword({email:data.email,password:data.password});if(error){showError(error);return}await openApp(result.session)});
-    document.querySelector("#sign-out").addEventListener("click",async()=>{await client.auth.signOut();ordersApp.classList.add("hidden");authGate.classList.remove("hidden");authForm.reset()});
-    client.auth.getSession().then(({data,error})=>{if(error){showError(error);return}if(data.session)openApp(data.session)});
-    client.auth.onAuthStateChange(event=>{if(event==="SIGNED_OUT"){ordersApp.classList.add("hidden");authGate.classList.remove("hidden")}});
+    document.querySelector("#reset-password").addEventListener("click",async()=>{const email=authForm.elements.email.value.trim();if(!email){authMessage.textContent="Digite seu e-mail para receber o link de recuperação.";authForm.elements.email.focus();return}authMessage.textContent="Enviando link de recuperação…";const {error}=await client.auth.resetPasswordForEmail(email);authMessage.textContent=error?error.message:"Enviamos um link para definir sua senha."});
+    resetForm.addEventListener("submit",async e=>{e.preventDefault();const password=new FormData(resetForm).get("password");resetMessage.textContent="Salvando…";const {error}=await client.auth.updateUser({password});if(error){resetMessage.textContent=error.message;return}resetMessage.textContent="Senha atualizada. Entrando…";recoveringPassword=false;location.hash="";resetForm.classList.add("hidden");const {data}=await client.auth.getSession();if(data.session)await openApp(data.session)});
+    document.querySelector("#sign-out").addEventListener("click",async()=>{await client.auth.signOut();ordersApp.classList.add("hidden");authGate.classList.remove("hidden");authForm.classList.remove("hidden");resetForm.classList.add("hidden");authForm.reset()});
+    client.auth.getSession().then(({data,error})=>{if(error){showError(error);return}if(data.session&&!recoveringPassword)openApp(data.session)});
+    client.auth.onAuthStateChange(event=>{if(event==="SIGNED_OUT"){ordersApp.classList.add("hidden");authGate.classList.remove("hidden")}else if(event==="PASSWORD_RECOVERY"){recoveringPassword=true;ordersApp.classList.add("hidden");authGate.classList.remove("hidden");authForm.classList.add("hidden");resetForm.classList.remove("hidden")}});
   }
   search.addEventListener("input",draw);statusFilter.addEventListener("change",draw);
   orderForm.addEventListener("submit",async e=>{e.preventDefault();if(loading)return;const data=Object.fromEntries(new FormData(orderForm)),old=ordersCache.find(o=>o.key===data.key),decks=selectedDecks();if(!decks.length){message.textContent="Selecione ao menos um baralho.";return}const now=new Date().toISOString(),total=orderTotal(decks),description=`${decks.map(d=>`${d.name} × ${d.quantity} — ${money(d.price)} cada`).join("\n")}\nSubtotal: ${money(total)}\nFrete: a combinar`,order={key:old?.key||(crypto.randomUUID?crypto.randomUUID():`${Date.now()}-${Math.random().toString(16).slice(2)}`),number:old?.number||nextNumber(ordersCache),name:data.name.trim(),whatsapp:data.whatsapp.trim(),email:data.email.trim(),decks,subtotal:total,description,status:data.status,note:data.note.trim(),createdAt:old?.createdAt||now,updatedAt:now};setBusy(true);message.textContent="Salvando online…";try{const {error}=await client.from("customer_orders").upsert(toRow(order),{onConflict:"key"});if(error)throw error;ordersCache=ordersCache.filter(o=>o.key!==order.key);ordersCache.push(order);selectedKey=order.key;message.textContent=`Pedido ${order.number} salvo online.`;reset();draw();activateTab("orders")}catch(err){message.textContent=err.message}finally{setBusy(false)}});
