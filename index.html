@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f5f0e7"><title>Pedidos — Santos Angelo Tarocchi</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <header class="panel-header"><a class="panel-brand" href="index.html"><img src="assets/logo-santos-angelo.png" alt="Santos Angelo"></a><a class="back-link" href="index.html">← Voltar ao site</a></header>
+  <main class="panel-shell">
+    <p class="eyebrow">CONTROLE DO ATELIÊ</p><h1>Pedidos <em>manuais</em></h1>
+    <p class="intro">Anote o pedido, acompanhe o status e prepare uma mensagem para enviar ao cliente. Os dados ficam salvos somente neste navegador.</p>
+    <section class="simple-admin">
+      <form id="simple-order-form" class="panel-card order-form">
+        <h2 id="order-form-title">Anotar pedido</h2>
+        <input type="hidden" name="key">
+        <div class="fields"><label class="field"><span class="field-label">Nome do cliente</span><input name="name" maxlength="120" required></label><label class="field"><span class="field-label">WhatsApp</span><input name="whatsapp" type="tel" maxlength="30" placeholder="Ex.: 5511999999999"></label><label class="field field-wide"><span class="field-label">E-mail</span><input name="email" type="email" maxlength="254" placeholder="cliente@exemplo.com"></label>
+          <fieldset class="deck-picker field-wide"><legend class="field-label">Baralhos e quantidades</legend><div id="admin-deck-options" class="admin-deck-options"></div></fieldset>
+          <p id="admin-order-summary" class="order-summary field-wide">Selecione os baralhos do pedido.</p>
+          <label class="field"><span class="field-label">Status</span><select name="status" required><option>Recebido</option><option>Confirmado</option><option>Em produção</option><option>Pronto</option><option>Enviado</option><option>Entregue</option><option>Cancelado</option></select></label><label class="field"><span class="field-label">Observação</span><textarea name="note" rows="2" maxlength="500" placeholder="Opcional"></textarea></label></div>
+        <div class="actions"><button class="button" type="submit">Salvar pedido</button><button class="button button-secondary hidden" id="cancel-edit" type="button">Cancelar edição</button></div>
+        <p id="order-message" class="status-message" role="status"></p>
+      </form>
+      <div class="orders-section"><div class="orders-heading"><h2>Pedidos anotados</h2><button id="export-orders" class="button button-secondary" type="button">Baixar cópia</button></div><div id="simple-order-list" class="orders-list"></div><p class="local-notice">Cada pedido pode ser editado. Depois de concluído, use <strong>Excluir</strong> para removê-lo desta lista.</p></div>
+      <p class="local-notice">Os registros ficam neste navegador. Para não perder os dados, use “Baixar cópia” e guarde o arquivo exportado.</p>
+    </section>
+  </main><script src="reservas.js"></script>
+</body></html>
