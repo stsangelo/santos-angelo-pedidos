@@ -6,10 +6,21 @@
   <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+  <section id="auth-gate" class="auth-gate">
+    <form id="auth-form" class="auth-card">
+      <p class="eyebrow">ACESSO DO ATELIÊ</p><h1>Entrar nos pedidos</h1>
+      <p class="intro">Entre com o e-mail e a senha cadastrados no Supabase.</p>
+      <label class="field"><span class="field-label">E-mail</span><input name="email" type="email" autocomplete="username" required></label>
+      <label class="field"><span class="field-label">Senha</span><input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="button" type="submit">Entrar</button>
+      <p id="auth-message" class="status-message" role="status"></p>
+    </form>
+  </section>
+  <div id="orders-app" class="hidden">
   <header class="panel-header"><a class="panel-brand" href="index.html"><img src="logo.png" alt="Santos Angelo"></a></header>
   <main class="panel-shell">
-    <p class="eyebrow">CONTROLE DO ATELIÊ</p><h1>Pedidos <em>manuais</em></h1>
-    <p class="intro">Anote o pedido, acompanhe o status e prepare uma mensagem para enviar ao cliente. Os dados ficam salvos somente neste navegador.</p>
+    <div class="app-toolbar"><div><p class="eyebrow">CONTROLE DO ATELIÊ</p><h1>Pedidos <em>manuais</em></h1></div><button id="sign-out" class="button button-secondary" type="button">Sair</button></div>
+    <p class="intro">Anote pedidos, consulte os detalhes e prepare mensagens para os clientes. Os registros ficam salvos online.</p>
     <section class="simple-admin">
       <nav class="panel-tabs" aria-label="Seções de pedidos"><button class="panel-tab is-active" type="button" data-panel-tab="new" aria-selected="true">Novo pedido</button><button class="panel-tab" type="button" data-panel-tab="orders" aria-selected="false">Pedidos cadastrados <span id="order-count" class="tab-count">0</span></button></nav>
       <section id="new-order-panel" class="tab-panel">
@@ -31,7 +42,7 @@
         <div id="order-detail-panel" class="order-detail-panel hidden"></div>
         <p class="local-notice">Cada pedido pode ser editado. Depois de concluído, use <strong>Excluir</strong> para removê-lo desta lista.</p>
       </section>
-      <p class="local-notice">Os registros ficam neste navegador. Para não perder os dados, use “Baixar cópia” e guarde o arquivo exportado.</p>
+      <p class="local-notice">Os registros são salvos na nuvem. Use “Baixar cópia” para manter um backup.</p>
     </section>
-  </main><script src="reservas.js"></script>
+  </main></div><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase-config.js"></script><script src="reservas.js"></script>
 </body></html>
